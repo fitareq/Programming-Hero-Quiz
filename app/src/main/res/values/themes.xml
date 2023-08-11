@@ -7,4 +7,18 @@
     </style>
 
     <style name="Theme.ProgrammingHeroQuiz" parent="Base.Theme.ProgrammingHeroQuiz" />
+    
+    <style name="textViewStyle">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="answerStyle" parent="textViewStyle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/answer_selector</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+    </style>
 </resources>

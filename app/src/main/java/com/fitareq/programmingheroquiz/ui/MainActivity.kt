@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
+import androidx.compose.ui.graphics.Color
+import androidx.core.content.ContextCompat
 import com.fitareq.programmingheroquiz.R
 import com.fitareq.programmingheroquiz.data.models.Data
 import com.fitareq.programmingheroquiz.databinding.ActivityMainBinding
@@ -34,5 +36,17 @@ class MainActivity : AppCompatActivity() {
             }
         }
         viewModel.getHomeData()
+
+        binding.answerA.apply {
+            isEnabled = false
+            isSelected = true
+            setTextColor(ContextCompat.getColor(this@MainActivity,R.color.black))
+        }
+
+        binding.answerB.apply {
+            isEnabled = false
+            isSelected = false
+            setTextColor(ContextCompat.getColor(this@MainActivity,R.color.black))
+        }
     }
 }
