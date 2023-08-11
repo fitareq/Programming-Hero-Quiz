@@ -29,16 +29,16 @@ data class Question(
 
     @SerializedName("question")
     @Expose
-    var question: String?,
+    var question: String,
     @SerializedName("answers")
     @Expose
-    var answers: Answers?,
+    var answers: Answers,
     @SerializedName("questionImageUrl")
     @Expose
     var questionImageUrl: String?,
     @SerializedName("correctAnswer")
     @Expose
-    var correctAnswer: String?,
+    var correctAnswer: String,
     @SerializedName("score")
     @Expose
     var score: Int?
