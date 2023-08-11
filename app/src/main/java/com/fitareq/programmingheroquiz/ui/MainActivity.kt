@@ -25,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
+import androidx.core.text.HtmlCompat
 import com.fitareq.programmingheroquiz.R
 import com.fitareq.programmingheroquiz.data.models.Data
 import com.fitareq.programmingheroquiz.data.models.Question
@@ -48,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.questions.observe(this) {
             when (it) {
                 is Data.Loading -> {
-                     showLoadingView()
+                    showLoadingView()
                 }
 
                 is Data.Success -> {
@@ -98,16 +99,16 @@ class MainActivity : AppCompatActivity() {
     private fun gotoNextQuestion() {
         ++currentQuestionIndex
         //showLoadingDialog()
-       if (currentQuestionIndex < questionList.size) {
-        handler.postDelayed({
-            loadQuestions()
-        }, 2000)
+        if (currentQuestionIndex < questionList.size) {
+            handler.postDelayed({
+                loadQuestions()
+            }, 2000)
         } else {
             handler.postDelayed({
                 startActivity(
                     Intent(this, EndActivity::class.java)
                         .putExtra(Constants.KEY_TOTAL_QUESTION, questionList.size.toString())
-                            .putExtra(Constants.KEY_SCORE, currentScore.toString())
+                        .putExtra(Constants.KEY_SCORE, currentScore.toString())
                         .putExtra(Constants.KEY_CORRECT_ANS, correctAns.toString())
                 )
                 finish()
@@ -262,13 +263,22 @@ class MainActivity : AppCompatActivity() {
                 )
                 score.text = getString(R.string.score, currentScore.toString())
                 questionPoint.text = getString(R.string.point, currentQuestion.score.toString())
-                if (currentQuestion.questionImageUrl.isNullOrEmpty()) {
+                if (currentQuestion.questionImageUrl.isNullOrEmpty() || currentQuestion.questionImageUrl == "null") {
                     questionImage.visibility = View.GONE
                 } else {
                     Picasso.get().load(currentQuestion.questionImageUrl).into(questionImage)
                     questionImage.visibility = View.VISIBLE
                 }
-                question.text = currentQuestion.question
+
+                if (currentQuestion.question.contains("</")) {
+                    val styledText = HtmlCompat.fromHtml(
+                        currentQuestion.question,
+                        HtmlCompat.FROM_HTML_MODE_LEGACY
+                    )
+                    question.text = styledText
+                } else {
+                    question.text = currentQuestion.question
+                }
 
                 val currentAnswer = currentQuestion.answers
                 if (currentAnswer.A.isNullOrEmpty()) {
@@ -357,14 +367,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showLoadingView() {
-       binding.apply {
-           composeView.visibility = View.GONE
-           scoreLay.visibility = View.GONE
-           questionLay.visibility = View.GONE
-           answerLay.visibility = View.GONE
+        binding.apply {
+            composeView.visibility = View.GONE
+            scoreLay.visibility = View.GONE
+            questionLay.visibility = View.GONE
+            answerLay.visibility = View.GONE
 
-           loading.visibility = View.VISIBLE
-       }
+            loading.visibility = View.VISIBLE
+        }
     }
 
     private fun hideLoadingView() {
