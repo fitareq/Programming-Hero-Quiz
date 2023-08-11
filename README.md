@@ -4,7 +4,7 @@
 
 Follow the steps below to install and run the app on your Android device:
 
-1. Download the APK file of the app from the [releases](https://github.com/fitareq/Programming-Hero-Quiz/blob/master/app/release/app-release.apk) section on GitHub.
+1. Download the APK file of the app from the [releases](https://github.com/fitareq/Programming-Hero-Quiz/blob/master/app/release/programming_hero_quiz.apk) section on GitHub.
    (If you are using Android Studio and want to build the app from the source code, skip this step.)
 
 2. Enable installation from "Unknown sources" on your Android device:
